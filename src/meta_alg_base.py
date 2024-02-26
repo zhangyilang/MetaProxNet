@@ -9,7 +9,7 @@ class MetaLearningAlgBase(ABC):
     @abstractmethod
     def __init__(self, args):
         self.args = args
-        model = FourBlkCNN(args.num_way, hidden_size=args.filter_size, num_feat=25*args.filter_size)
+        model = FourBlkCNN(args.num_way, hidden_size=args.num_filter, num_feat=25*args.num_filter)
         self.model = model.to(args.device)
 
     @abstractmethod

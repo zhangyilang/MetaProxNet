@@ -149,7 +149,7 @@ if __name__ == '__main__':
     parser.add_argument('--task-lr', type=float, default=1e-2, help='Learning rate for task-updates')
     parser.add_argument('--share-param', type=bool, default=False, help='Whether to share parameters for different '
                                                                         'blocks of unrolling NN')
-    parser.add_argument('--filter-size', type=int, default=128, help='Number of filters per layer in CNN')
+    parser.add_argument('--num-filter', type=int, default=128, help='Number of filters per layer in CNN')
 
     args = parser.parse_args()
 
