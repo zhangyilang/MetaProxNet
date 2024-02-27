@@ -43,7 +43,7 @@ To reproduce the results reported in our paper, please use the scripts provided 
 > Y. Zhang, and G. B. Giannakis, "Meta-Learning Priors Using Unrolled Proximal Networks," in *Proceedings of International Conference on Learning Representations*, Vienna, Austria, Map 7-11, 2024.
 
 ```tex
-@inproceedings{iBaML, 
+@inproceedings{MetaProxNet, 
   author={Zhang, Yilang and Giannakis, Georgios B.}, 
   title={Meta-Learning Priors Using Unrolled Proximal Networks}, 
   booktitle={International Conference on Learning Representations}, 
