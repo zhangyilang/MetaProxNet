@@ -1,4 +1,4 @@
-# MetaProx
+# [ICLR 2024] MetaProx
 
 Implementation of paper “[Meta-Learning Priors Using Unrolled Proximal Networks](https://openreview.net/forum?id=b3Cu426njo)” (accepted by ICLR 2024). 
 
