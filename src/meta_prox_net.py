@@ -1,7 +1,7 @@
 import os
+import math
 from collections import OrderedDict
 
-import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -124,7 +124,7 @@ class MetaProxNetSGD(MetaProxNet):
 
         self.log_step_size = OrderedDict()
         for name, param in self.model.meta_named_parameters():
-            self.log_step_size[name] = nn.Parameter(torch.zeros_like(param) + np.log(self.args.task_lr))
+            self.log_step_size[name] = nn.Parameter(torch.zeros_like(param) + math.log(self.args.task_lr))
 
     def meta_optimizer(self):
         if self.args.dataset.lower() == 'miniimagenet':
