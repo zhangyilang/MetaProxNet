@@ -8,11 +8,10 @@ from torchmeta.transforms import ClassSplitter, Categorical, Rotation
 from torchmeta.utils.data import BatchMetaDataLoader
 from torchvision.transforms import ToTensor, Compose, Resize
 from src.maml import MAML
-from src.meta_prox import MetaProx, MetaProxMC
+from src.meta_prox_net import MetaProxNet, MetaProxNetMC, MetaProxNetSGD
 from src.meta_pgd import MetaPGDGaussian
 from src.meta_sgd import MetaSGD
 from src.meta_curvature import MetaCurvature
-from src.others import MetaProxMetaSGD
 
 
 def main(args):
@@ -91,20 +90,20 @@ def main(args):
     args.loss_fn = torch.nn.CrossEntropyLoss()
 
     alg = args.algorithm.lower()
-    if alg == 'metaprox' or alg == 'metaproxmaml':
-        alg = MetaProx(args)
+    if alg == 'metaproxnet' or alg == 'metaproxnetmaml':
+        alg = MetaProxNet(args)
     elif alg == 'maml':
         alg = MAML(args)
     elif alg == 'metapgd-gaussian':
         alg = MetaPGDGaussian(args)
     elif alg == 'metasgd':
         alg = MetaSGD(args)
-    elif alg == 'metaproxmetasgd':
-        alg = MetaProxMetaSGD(args)
+    elif alg == 'metaproxnetsgd':
+        alg = MetaProxNetSGD(args)
     elif alg == 'metacurvature':
         alg = MetaCurvature(args)
-    elif alg == 'metaproxmc':
-        alg = MetaProxMC(args)
+    elif alg == 'metaproxnetmc':
+        alg = MetaProxNetMC(args)
     else:
         raise NotImplementedError
 
@@ -124,14 +123,14 @@ if __name__ == '__main__':
     parser.add_argument('--dataset', type=str, default='miniImageNet', help='Dataset')
     parser.add_argument('--download', type=bool, default=False, help='Whether to download the dataset')
     parser.add_argument('--num-way', type=int, default=5, help='Number of classes per task')
-    parser.add_argument('--num-supp', type=int, default=5, help='Number of data per class (aka. shot) in support set')
+    parser.add_argument('--num-supp', type=int, default=1, help='Number of data per class (aka. shot) in support set')
     parser.add_argument('--num-qry', type=int, default=15, help='Number of data per class in query set')
     parser.add_argument('--num-val-tasks', type=int, default=1000, help='Number of tasks for meta-validation')
     parser.add_argument('--num-ts-tasks', type=int, default=1000, help='Number of tasks for meta-test')
     parser.add_argument('--seed', type=int, default=0, help='Seed for reproducibility')
 
     # algorithm
-    parser.add_argument('--algorithm', type=str, default='MetaProxMC', help='Few-shot learning methods')
+    parser.add_argument('--algorithm', type=str, default='MetaProxNetMC', help='Few-shot learning methods')
     parser.add_argument('--cuda', type=bool, default=True, help='Whether to use cuda')
 
     # meta training params

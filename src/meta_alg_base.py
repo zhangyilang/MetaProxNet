@@ -1,8 +1,10 @@
 from abc import ABC, abstractmethod
-from src.models import FourBlkCNN
-from src.utils import split_task_batch, Checkpointer
+
 import numpy as np
 import torch
+
+from src.models import FourBlkCNN
+from src.utils import split_task_batch, Checkpointer
 
 
 class MetaLearningAlgBase(ABC):

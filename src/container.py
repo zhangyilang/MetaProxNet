@@ -1,6 +1,7 @@
-from torchmeta.modules import MetaModule
-from torch.nn import Parameter, ParameterList, ParameterDict
 from typing import Iterable, Mapping, Optional
+
+from torch.nn import Parameter, ParameterList, ParameterDict
+from torchmeta.modules import MetaModule
 
 
 class MetaParameterList(ParameterList, MetaModule):

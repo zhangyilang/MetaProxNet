@@ -1,7 +1,9 @@
 import os
+
 import torch
-from src.meta_alg_base import MetaLearningAlgBase
 from torchmeta.utils import gradient_update_parameters
+
+from src.meta_alg_base import MetaLearningAlgBase
 
 
 class MAML(MetaLearningAlgBase):

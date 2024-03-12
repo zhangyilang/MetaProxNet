@@ -1,9 +1,11 @@
 import os
+from collections import OrderedDict
+
+import numpy as np
 import torch
 import torch.nn as nn
-import numpy as np
-from collections import OrderedDict
 from torchmeta.utils import gradient_update_parameters
+
 from src.meta_alg_base import MetaLearningAlgBase
 
 
@@ -13,12 +15,12 @@ class MetaSGD(MetaLearningAlgBase):
 
         self.log_step_size = OrderedDict()
         for name, param in self.model.meta_named_parameters():
-            self.log_step_size[name] = nn.Parameter(torch.ones_like(param) * np.log(self.args.task_lr))
+            self.log_step_size[name] = nn.Parameter(torch.zeros_like(param) + np.log(self.args.task_lr))
 
     def meta_optimizer(self):
         return torch.optim.Adam(list(self.model.meta_parameters()) +
                                 list(self.log_step_size.values()),
-                                lr=self.args.meta_lr)
+                                lr=self.args.meta_lr), None
 
     def save_model(self, file_name):
         torch.save({'model': self.model.state_dict(),
@@ -32,8 +34,7 @@ class MetaSGD(MetaLearningAlgBase):
 
     def adaptation(self, x_supp, y_supp, first_order):
         params = None
-        step_size = OrderedDict({name: param.exp()
-                                 for name, param in self.log_step_size.items()})
+        step_size = OrderedDict({name: param.exp() for name, param in self.log_step_size.items()})
 
         for _ in range(self.args.task_iter):
             y_pred = self.model(x_supp, params=params)
